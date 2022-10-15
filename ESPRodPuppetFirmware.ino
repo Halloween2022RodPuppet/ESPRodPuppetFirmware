@@ -17,12 +17,15 @@
 #include "server/NameCheckerServer.h"
 
 UDPSimplePacket coms;
+WifiManager manager;
 void setup() {
 	String name ="rodpuppet";
+	manager.setup();
 	coms.attach(new NameCheckerServer(&name));
 	coms.attach(new SetServos());
 }
 
 void loop() {
+	manager.loop();
 	coms.server();
 }

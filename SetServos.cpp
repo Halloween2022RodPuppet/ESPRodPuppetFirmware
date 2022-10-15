@@ -14,7 +14,7 @@ void SetServos::event(float * buffer) {
 	uint8_t * bytes = (uint8_t *) buffer;
 	if ((lastTime + 20) < millis()) {
 		lastTime = millis();
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i < NUM_SERVO_SERVED; i++) {
 			if (currentPos[i] != bytes[i]) {
 				//Serial.println(bytes[i]);
 				servos[i].write((int)map(bytes[i], 0, 255, 0, 180));
