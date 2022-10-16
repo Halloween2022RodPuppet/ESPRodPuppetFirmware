@@ -17,7 +17,7 @@ void SetServos::event(float * buffer) {
 		for (int i = 0; i < NUM_SERVO_SERVED; i++) {
 			if (currentPos[i] != bytes[i]) {
 				//Serial.println(bytes[i]);
-				servos[i].write((int)map(bytes[i], 0, 255, 0, 180));
+				servos[i].write(bytes[i]);
 				currentPos[i] = bytes[i];
 			}
 
