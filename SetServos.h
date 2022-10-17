@@ -24,7 +24,7 @@ private:
 #else
 	PWMServo servos[NUM_SERVO_SERVED];
 #endif
-	int currentPos[NUM_SERVO_SERVED] = {90,};
+	int currentPos[NUM_SERVO_SERVED] = {90,90,90,90,90,90,90,90,90,90,90,90};
 	int ServoPins[NUM_SERVO_SERVED] ={15,2,4,16,17,5,13,12,14,27,26,25};
 		// { 10, 30, 29, 21, 22, 6, 8, 4, 38, 37, 35, 5, 2, 14, 36, 9, 3, 7, 23, 20 };
 		//{9,8, 4, 5, 2,3, 7, 6, 22, 21, 10, 29, 30, 23, 20, 14, 36, 35, 37, 38}

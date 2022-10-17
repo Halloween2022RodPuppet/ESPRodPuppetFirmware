@@ -18,10 +18,11 @@
 
 UDPSimplePacket coms;
 WifiManager manager;
+String * name =new String("rodpuppet");
+
 void setup() {
-	String name ="rodpuppet";
 	manager.setup();
-	coms.attach(new NameCheckerServer(&name));
+	coms.attach(new NameCheckerServer(name));
 	coms.attach(new SetServos());
 }
 

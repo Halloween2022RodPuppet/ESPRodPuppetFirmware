@@ -16,7 +16,7 @@ void SetServos::event(float * buffer) {
 		lastTime = millis();
 		for (int i = 0; i < NUM_SERVO_SERVED; i++) {
 			if (currentPos[i] != bytes[i]) {
-				//Serial.println(bytes[i]);
+				Serial.println("Byte "+String(i)+" val= "+String((int)bytes[i]));
 				servos[i].write(bytes[i]);
 				currentPos[i] = bytes[i];
 			}
