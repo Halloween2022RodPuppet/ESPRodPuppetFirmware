@@ -17,12 +17,12 @@
 #define NUM_SERVO_SERVED 12
 
 
-float fmap(float x, float in_min, float in_max, float out_min, float out_max);
 
 class Delta{
   public:
     int A,B,C;
-    	uint8_t * v ;
+    uint8_t * v ;
+    float fmap(float x, float in_min, float in_max, float out_min, float out_max);
 
     Delta(int a, int b, int c,uint8_t * currentPos){
       A=a;
@@ -30,12 +30,14 @@ class Delta{
       C=c;
       v=currentPos;
     }
-    void update(int lr, int ud){
-      lr=fmap(lr,0,255,-1,1);
-      ud=fmap(ud,0,255,-1,1);
-      v[A]= fmap(ud,-1,1,45,145);
-      v[B]= fmap((lr/2)-(ud/2),-1,1,45,145);
-      v[C]= fmap((lr/-2)-(ud/2),-1,1,45,145);
+    void update(int LR, int UD){
+      float lr=fmap(LR,0,255,-1,1);
+      float ud=fmap(UD,0,255,-1,1);
+      float l = 45;
+      float h= 180-l;
+      v[A]= fmap(ud,-1,1,l,h);
+      v[B]= fmap((lr/2)-(ud/2),-1,1,l,h);
+      v[C]= fmap((lr/-2)-(ud/2),-1,1,l,h);
       
     }
 };

@@ -21,7 +21,7 @@ UDPSimplePacket coms;
 WifiManager manager;
 String * name =new String("rodpuppet");
 Accessory nunchuck1;
-SetServos * servos = new SetServos();
+SetServos * servos;
 uint8_t cp[NUM_SERVO_SERVED] = {90,90,90,90,90,90,90,90,90,90,90,90};
 
 Delta * fb = new Delta(0,1,2,cp);
@@ -31,7 +31,9 @@ Delta * right = new Delta(6,7,8,cp);
 
 void setup() {
 	//manager.setup();
+  Serial.begin(115200);
 	coms.attach(new NameCheckerServer(name));
+  servos = new SetServos();
 	coms.attach(servos);
   nunchuck1.begin();
 }
@@ -43,6 +45,8 @@ void loop() {
     nunchuck1.readData();    // Read inputs and update maps
     //nunchuck1.printInputs(); // Print all inputs
     fb->update(nunchuck1.values[0], nunchuck1.values[1]);
+    left->update(nunchuck1.values[0], nunchuck1.values[1]);
+    right->update(nunchuck1.values[0], nunchuck1.values[1]);
 
     servos->event((float *)cp);
   }

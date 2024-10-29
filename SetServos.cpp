@@ -7,7 +7,7 @@
 
 #include "SetServos.h"
 
- float fmap(float x, float in_min, float in_max, float out_min, float out_max) {
+ float Delta::fmap(float x, float in_min, float in_max, float out_min, float out_max) {
     const float run = in_max - in_min;
     if(run == 0){
         log_e("map(): Invalid input range, min == max");
