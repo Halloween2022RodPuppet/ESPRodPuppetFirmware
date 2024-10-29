@@ -15,18 +15,35 @@
 #include <ESP32Servo.h>
 #include "SetServos.h"
 #include "server/NameCheckerServer.h"
+#include <WiiChuck.h>
 
 UDPSimplePacket coms;
 WifiManager manager;
 String * name =new String("rodpuppet");
+Accessory nunchuck1;
+SetServos * servos = new SetServos();
+uint8_t cp[NUM_SERVO_SERVED] = {90,90,90,90,90,90,90,90,90,90,90,90};
+
+Delta * fb = new Delta(0,1,2,cp);
+Delta * left = new Delta(3,4,5,cp);
+Delta * right = new Delta(6,7,8,cp);
+
 
 void setup() {
-	manager.setup();
+	//manager.setup();
 	coms.attach(new NameCheckerServer(name));
-	coms.attach(new SetServos());
+	coms.attach(servos);
+  nunchuck1.begin();
 }
 
 void loop() {
-	manager.loop();
-	coms.server();
+	//manager.loop();
+	//coms.server();
+  if(manager.getState()!=Connected){
+    nunchuck1.readData();    // Read inputs and update maps
+    //nunchuck1.printInputs(); // Print all inputs
+    fb->update(nunchuck1.values[0], nunchuck1.values[1]);
+
+    servos->event((float *)cp);
+  }
 }
